@@ -1,11 +1,12 @@
 import React from 'react'
+import "../widgets/index.js"
 import { Button } from '../shared/ui/Button/Button'
+import { Header } from '../widgets/index.js'
 
 export const HomePage = () => {
   return (
     <div>
-      <h1>Добро пожаловать в FSD проект!</h1>
-      <Button variant="primary">Начать работу</Button>
+      <Header />
     </div>
   )
 }
