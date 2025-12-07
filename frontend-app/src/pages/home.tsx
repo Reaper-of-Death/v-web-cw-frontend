@@ -1,10 +1,8 @@
-import React from 'react'
-import "../widgets/index.js"
-import { Button } from '../shared/ui/Button/Button'
-import { Header } from '../widgets/index.js'
+import { type FC } from 'react';
+import { Header } from '../widgets/index.js';
+import "../widgets/index.js";
 
-export const HomePage = () => {
-
+export const HomePage: FC = () => {
   return (
     <div className="home-page">
       <Header />
@@ -45,5 +43,5 @@ export const HomePage = () => {
         </section>
       </main>
     </div>
-  )
-}
+  );
+};

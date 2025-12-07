@@ -1,7 +1,25 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, type FC } from 'react';
 
-export const Header = () => {
-  const menuItems = [
+// Типы для элементов меню
+interface MenuItemType {
+  title: string;
+  items: string[];
+}
+
+// Пропсы для компонента Header
+interface HeaderProps {
+  // Можно добавить дополнительные пропсы при необходимости
+}
+
+// Пропсы для компонента MenuItem
+interface MenuItemProps {
+  title: string;
+  items: string[];
+  isLast?: boolean;
+}
+
+export const Header: FC<HeaderProps> = () => {
+  const menuItems: MenuItemType[] = [
     {
       title: 'Файл',
       items: ['Новый проект', 'Открыть проект', 'Сохранить', 'Сохранить как...', 'Экспорт']
@@ -43,14 +61,14 @@ export const Header = () => {
   );
 };
 
-const MenuItem = ({ title, items, isLast }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const menuRef = useRef(null);
+const MenuItem: FC<MenuItemProps> = ({ title, items, isLast = false }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   // Закрытие меню при клике вне его области
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
