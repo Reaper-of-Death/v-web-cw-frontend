@@ -1,0 +1,280 @@
+#header {
+  background-color: white;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Верхняя строка - название конструктора */
+.constructor-title {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-bottom: 1px solid #e8e8e8;
+  padding: 8px 24px;
+}
+
+.constructor-title h1 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* Основная панель */
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  min-height: 56px;
+}
+
+/* Проект слева */
+.project-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 300px;
+}
+
+.project-icon {
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
+.project-name-input {
+  border: 1px solid transparent;
+  background: transparent;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+  padding: 4px 8px;
+  border-radius: 4px;
+  min-width: 200px;
+  transition: all 0.2s ease;
+}
+
+.project-name-input:hover {
+  border-color: #e0e0e0;
+  background: #fafafa;
+}
+
+.project-name-input:focus {
+  outline: none;
+  border-color: #2196f3;
+  background: white;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+}
+
+.project-status {
+  font-size: 0.85rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.project-status.new {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+/* Меню справа */
+.menu-bar {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.menu-item-container {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.menu-button:hover {
+  background-color: #f5f5f5;
+  border-color: #e0e0e0;
+}
+
+.menu-button:active {
+  background-color: #ebebeb;
+}
+
+.menu-button[aria-expanded="true"] {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border-color: #bbdefb;
+}
+
+.menu-arrow {
+  font-size: 0.7rem;
+  opacity: 0.6;
+  transition: transform 0.2s ease;
+}
+
+.menu-button[aria-expanded="true"] .menu-arrow {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+/* Выпадающие меню */
+.dropdown-menu {
+  background: white;
+  min-width: 240px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  z-index: 1001;
+  overflow: hidden;
+  animation: dropdownFadeIn 0.15s ease-out;
+  margin-top: 4px;
+}
+
+.dropdown-right {
+  left: auto !important;
+  right: 0 !important;
+}
+
+.dropdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-size: 0.9rem;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+  color: #1976d2;
+}
+
+.dropdown-item:active {
+  background-color: #e3f2fd;
+}
+
+.dropdown-text {
+  flex: 1;
+}
+
+.dropdown-shortcut {
+  font-size: 0.8rem;
+  color: #888;
+  margin-left: 16px;
+  opacity: 0.8;
+  font-family: 'Monaco', 'Consolas', monospace;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: #f0f0f0;
+  margin: 0;
+  border: none;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .header-main {
+    padding: 12px 16px;
+  }
+  
+  .project-info {
+    min-width: 250px;
+  }
+  
+  .project-name-input {
+    min-width: 150px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-main {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
+  
+  .project-info {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .menu-bar {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .constructor-title h1 {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .constructor-title {
+    padding: 6px 12px;
+  }
+  
+  .constructor-title h1 {
+    font-size: 1rem;
+  }
+  
+  .header-main {
+    padding: 10px;
+  }
+  
+  .project-name-input {
+    min-width: 120px;
+    font-size: 0.95rem;
+  }
+  
+  .menu-button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .dropdown-menu {
+    min-width: 200px;
+  }
+}

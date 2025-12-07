@@ -6,170 +6,122 @@
   box-sizing: border-box;
 }
 
-#root {
-  width: 100%;
-  max-width: 100%;
+html, body {
   font-family: 'Roboto', sans-serif;
   background-color: #f8f9fa;
   color: #333;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-#header {
-  border-bottom: 2px solid #e0e0e0;
-  padding: 1rem 0;
-  background-color: white;
-  width: 100%;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+/* Глобальные стили для предотвращения странного поведения */
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
 
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f8f9fa;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+/* Убираем стандартные стили для списков */
+ul, ol {
+  list-style: none;
 }
 
-/* Контейнер для заголовка с ограничением ширины */
-.header-wrapper {
-  width: 100%;
-  background-color: white;
+/* Убираем подчеркивание ссылок */
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-.header-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
+/* Улучшаем видимость фокуса для доступности */
+:focus {
+  outline: 2px solid #2196f3;
+  outline-offset: 2px;
 }
 
-.menu-bar {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+:focus:not(:focus-visible) {
+  outline: none;
 }
 
-.menu-item {
-  position: relative;
+/* Стили для скроллбара */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Глобальные сбросы стилей для инпутов и кнопок */
+button {
+  border: none;
+  background: none;
   cursor: pointer;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: background-color 0.2s;
-  white-space: nowrap;
+  font-family: inherit;
+  padding: 0;
+  margin: 0;
 }
 
-.menu-item:hover {
-  background-color: #f0f0f0;
+input {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: white;
-  min-width: 200px;
-  max-width: 300px;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  z-index: 1000;
+input:focus {
+  outline: none;
+}
+
+/* Стили для основного контента */
+.main-content {
+  flex: 1;
+  width: 100%;
   overflow: hidden;
 }
 
-/* Автоматическое позиционирование справа для крайних элементов */
-.menu-bar > .menu-item:last-child .dropdown-content,
-.menu-bar > .menu-item:nth-last-child(2) .dropdown-content {
-  left: auto;
-  right: 0;
+/* Убираем стандартные стили для списков */
+ul, ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.menu-item:hover .dropdown-content {
-  display: block;
+/* Улучшаем скроллбар */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-.dropdown-item {
-  padding: 0.75rem 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  white-space: normal;
-  word-wrap: break-word;
-  max-width: 100%;
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
 }
 
-.dropdown-item:hover {
-  background-color: #f5f5f5;
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
 }
 
-.dropdown-divider {
-  height: 1px;
-  background-color: #e0e0e0;
-  margin: 0.25rem 0;
-}
-
-* {
-  font-family: 'Roboto', sans-serif;
-}
-
-/* Основной контейнер для контента */
-.content-wrapper {
-  flex: 1;
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-/* Убираем горизонтальную прокрутку */
-html, body {
-  overflow-x: hidden;
-  width: 100%;
-}
-
-/* Для очень маленьких экранов */
-@media (max-width: 768px) {
-  .header-container {
-    padding: 0 1rem;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-  
-  .menu-bar {
-    width: 100%;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .menu-item {
-    width: 100%;
-    padding: 0.75rem;
-  }
-  
-  .dropdown-content {
-    position: static;
-    width: 100%;
-    max-width: 100%;
-    box-shadow: none;
-    border: none;
-    border-top: 1px solid #e0e0e0;
-  }
-  
-  .menu-item:hover .dropdown-content {
-    display: block;
-    position: static;
-  }
-}
-
-.dropdown-right {
-  left: auto !important;
-  right: 0 !important;
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }

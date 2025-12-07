@@ -1,71 +1,82 @@
-import React, { useState, useRef, useEffect, type FC } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
-// Типы для элементов меню
-interface MenuItemType {
+interface MenuItem {
   title: string;
   items: string[];
 }
 
-// Пропсы для компонента Header
-interface HeaderProps {
-  // Можно добавить дополнительные пропсы при необходимости
-}
-
-// Пропсы для компонента MenuItem
-interface MenuItemProps {
-  title: string;
-  items: string[];
-  isLast?: boolean;
-}
-
-export const Header: FC<HeaderProps> = () => {
-  const menuItems: MenuItemType[] = [
+export const Header: React.FC = () => {
+  const [projectName, setProjectName] = useState<string>('Новый проект');
+  const menuItems: MenuItem[] = [
     {
       title: 'Файл',
-      items: ['Новый проект', 'Открыть проект', 'Сохранить', 'Сохранить как...', 'Экспорт']
-    },
-    {
-      title: 'Правка',
-      items: ['Отменить', 'Повторить', 'Вырезать', 'Копировать', 'Вставить']
+      items: ['Новый проект', 'Открыть проект', 'Сохранить', 'Сохранить как...', 'Экспорт', 'Выход']
     },
     {
       title: 'Вид',
-      items: ['Панель инструментов', 'Свойства', 'Масштаб', 'Полноэкранный режим']
+      items: ['Панель инструментов', 'Свойства', 'Масштаб', 'Полноэкранный режим', 'Сбросить вид']
     },
     {
       title: 'Справка',
-      items: ['Документация', 'О программе', 'Проверить обновления']
+      items: ['Документация', 'Примеры', 'О программе', 'Проверить обновления']
     }
   ];
 
+  const handleFileAction = (action: string) => {
+    console.log(`Выбрано действие: ${action}`);
+    if (action === 'Новый проект') {
+      setProjectName('Новый проект');
+    }
+  };
+
   return (
     <header id="header">
-      <div className="header-wrapper">
-        <div className="header-container">
-          <div className="logo">
-            <h1>Логический конструктор</h1>
-          </div>
-          <nav className="menu-bar">
-            {menuItems.map((menu, index) => (
-              <MenuItem 
-                key={index}
-                title={menu.title}
-                items={menu.items}
-                isLast={index >= menuItems.length - 2} // Для крайних 2 элементов
-              />
-            ))}
-          </nav>
+      {/* Верхняя строка - название конструктора */}
+      <div className="constructor-title">
+        <h1>Логический конструктор</h1>
+      </div>
+      
+      {/* Основная панель */}
+      <div className="header-main">
+        <div className="project-info">
+          <div className="project-icon">📁</div>
+          <input 
+            type="text" 
+            className="project-name-input"
+            value={projectName}
+            onChange={(e) => setProjectName(e.target.value)}
+            placeholder="Название проекта"
+          />
+          {projectName === 'Новый проект' && (
+            <span className="project-status new">Не сохранено</span>
+          )}
         </div>
+        
+        <nav className="menu-bar">
+          {menuItems.map((menu, index) => (
+            <MenuItemComponent 
+              key={index}
+              menu={menu}
+              onItemSelect={handleFileAction}
+              isLast={index === menuItems.length - 1}
+            />
+          ))}
+        </nav>
       </div>
     </header>
   );
 };
 
-const MenuItem: FC<MenuItemProps> = ({ title, items, isLast = false }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+interface MenuItemProps {
+  menu: MenuItem;
+  onItemSelect: (action: string) => void;
+  isLast: boolean;
+}
+
+const MenuItemComponent: React.FC<MenuItemProps> = ({ menu, onItemSelect, isLast }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Закрытие меню при клике вне его области
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -77,20 +88,65 @@ const MenuItem: FC<MenuItemProps> = ({ title, items, isLast = false }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const getShortcut = (item: string): string => {
+    const shortcuts: Record<string, string> = {
+      'Новый проект': 'Ctrl+N',
+      'Открыть проект': 'Ctrl+O',
+      'Сохранить': 'Ctrl+S',
+      'Сохранить как...': 'Ctrl+Shift+S',
+      'Выход': 'Ctrl+Q',
+      'Отменить': 'Ctrl+Z',
+      'Повторить': 'Ctrl+Y',
+      'Копировать': 'Ctrl+C',
+      'Вставить': 'Ctrl+V',
+      'Полноэкранный режим': 'F11'
+    };
+    return shortcuts[item] || '';
+  };
+
   return (
     <div 
-      className="menu-item" 
+      className="menu-item-container" 
+      ref={menuRef}
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
-      ref={menuRef}
     >
-      <span>{title}</span>
+      <button 
+        className="menu-button"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+      >
+        {menu.title}
+        <span className="menu-arrow">▾</span>
+      </button>
+      
       {isOpen && (
-        <div className={`dropdown-content ${isLast ? 'dropdown-right' : ''}`}>
-          {items.map((item, index) => (
+        <div 
+          className={`dropdown-menu ${isLast ? 'dropdown-right' : ''}`}
+          style={{
+            position: 'absolute',
+            top: '100%',
+            left: isLast ? 'auto' : '0',
+            right: isLast ? '0' : 'auto'
+          }}
+        >
+          {menu.items.map((item, index) => (
             <React.Fragment key={index}>
-              <div className="dropdown-item">{item}</div>
-              {index < items.length - 1 && <div className="dropdown-divider" />}
+              <button
+                className="dropdown-item"
+                onClick={() => {
+                  onItemSelect(item);
+                  setIsOpen(false);
+                }}
+              >
+                <span className="dropdown-text">{item}</span>
+                {getShortcut(item) && (
+                  <span className="dropdown-shortcut">{getShortcut(item)}</span>
+                )}
+              </button>
+              {index < menu.items.length - 1 && (
+                <div className="dropdown-divider" />
+              )}
             </React.Fragment>
           ))}
         </div>
