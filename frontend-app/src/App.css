@@ -1,17 +1,30 @@
+@import url("./app/styles/styles.css");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 #root {
-  max-width: 1280px;
+  width: 100%;
+  max-width: 100%;
   font-family: 'Roboto', sans-serif;
-  background-color: #f8f9fa; /* или #f5f5f5, #fafafa */
+  background-color: #f8f9fa;
   color: #333;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 #header {
   border-bottom: 2px solid #e0e0e0;
   padding: 1rem 0;
-  margin-bottom: 2rem;
-  border-width: 100%;
-  width: 100vw;
+  background-color: white;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 body {
@@ -19,21 +32,29 @@ body {
   background-color: #f8f9fa;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+}
+
+/* Контейнер для заголовка с ограничением ширины */
+.header-wrapper {
+  width: 100%;
+  background-color: white;
 }
 
 .header-container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
   display: flex;
-  align-items: normal;
+  align-items: center;
   justify-content: space-between;
-  flex-direction: column
+  position: relative;
 }
 
 .menu-bar {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .menu-item {
@@ -42,14 +63,11 @@ body {
   padding: 0.5rem 1rem;
   border-radius: 4px;
   transition: background-color 0.2s;
+  white-space: nowrap;
 }
 
 .menu-item:hover {
   background-color: #f0f0f0;
-}
-
-.menu-item:hover .dropdown-content {
-  display: block;
 }
 
 .dropdown-content {
@@ -59,16 +77,32 @@ body {
   left: 0;
   background-color: white;
   min-width: 200px;
+  max-width: 300px;
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   z-index: 1000;
+  overflow: hidden;
+}
+
+/* Автоматическое позиционирование справа для крайних элементов */
+.menu-bar > .menu-item:last-child .dropdown-content,
+.menu-bar > .menu-item:nth-last-child(2) .dropdown-content {
+  left: auto;
+  right: 0;
+}
+
+.menu-item:hover .dropdown-content {
+  display: block;
 }
 
 .dropdown-item {
   padding: 0.75rem 1rem;
   cursor: pointer;
   transition: background-color 0.2s;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 100%;
 }
 
 .dropdown-item:hover {
@@ -83,4 +117,59 @@ body {
 
 * {
   font-family: 'Roboto', sans-serif;
+}
+
+/* Основной контейнер для контента */
+.content-wrapper {
+  flex: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Убираем горизонтальную прокрутку */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .menu-bar {
+    width: 100%;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .menu-item {
+    width: 100%;
+    padding: 0.75rem;
+  }
+  
+  .dropdown-content {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    box-shadow: none;
+    border: none;
+    border-top: 1px solid #e0e0e0;
+  }
+  
+  .menu-item:hover .dropdown-content {
+    display: block;
+    position: static;
+  }
+}
+
+.dropdown-right {
+  left: auto !important;
+  right: 0 !important;
 }
