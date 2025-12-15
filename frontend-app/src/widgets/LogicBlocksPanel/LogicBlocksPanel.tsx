@@ -34,6 +34,8 @@ export const LogicBlocksPanel: React.FC<LogicBlocksPanelProps> = ({
       case 'AND': return '&';
       case 'OR': return '≥1';
       case 'NOT': return '1';
+      case 'INPUT': return 'IN';
+      case 'OUTPUT': return 'OUT';
       default: return '?';
     }
   };

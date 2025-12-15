@@ -66,6 +66,26 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ selectedBlock 
             formula: '¬A',
             symbol: '1'
           };
+        case 'INPUT':
+          return {
+            truthTable: [
+              { input: 0, output: 1 },
+              { input: 1, output: 0 }
+            ],
+            description: 'Источник сигнала, который может быть установлен в 0 (логический ноль) или 1 (логическая единица).',
+            formula: '-',
+            symbol: 'IN'
+          };
+        case 'OUTPUT':
+          return {
+            truthTable: [
+              { input: 0, output: 1 },
+              { input: 1, output: 0 }
+            ],
+            description: 'Отображает результат работы логической схемы. Может принимать значения 0 или 1.',
+            formula: '-',
+            symbol: 'OUT'
+          };
         default:
           return {
             description: 'Неизвестный тип блока'
