@@ -1,0 +1,79 @@
+.randomGame {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+.randomGameLoading {
+    opacity: 0.7;
+    font-style: italic;
+}
+
+.error {
+    color: #dc3545;
+    font-style: italic;
+    font-size: 12px;
+}
+
+.randomGameLink {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.gameLink:hover {
+    text-decoration: underline;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.gameLink:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.refreshButton {
+    background: none;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    color: #6c757d;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+}
+
+.refreshButton:hover {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
+    color: #495057;
+}
+
+.refreshButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.refreshIcon {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.randomGameText {
+    color: #495057;
+}

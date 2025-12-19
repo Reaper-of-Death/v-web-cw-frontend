@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { RandomGame } from '../../app/api/random-game'
 
 interface MenuItem {
   title: string;
@@ -34,6 +35,7 @@ export const Header: React.FC = () => {
       {/* Верхняя строка - название конструктора */}
       <div className="constructor-title">
         <h1>Логический конструктор</h1>
+        <RandomGame/>
       </div>
       
       {/* Основная панель */}

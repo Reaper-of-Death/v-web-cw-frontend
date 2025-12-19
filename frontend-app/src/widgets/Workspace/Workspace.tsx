@@ -72,23 +72,29 @@ export const Workspace: React.FC<WorkspaceProps> = ({
   // Рассчитываем значения блоков при изменении схемы
   useEffect(() => {
     const circuitResults = ConnectionManager.simulateCircuit(
-      blocks.map(b => ({
-        id: b.id,
-        type: b.type,
-        name: b.name,
-        description: '',
-        inputs: b.inputs,
-        outputs: b.outputs,
-        position: b.position,
-        properties: b.properties
-      })),
-      connections
-    );
+    blocks.map(b => ({
+      id: b.id,
+      type: b.type,
+      name: b.name,
+      description: '',
+      inputs: b.inputs,
+      outputs: b.outputs,
+      position: b.position,
+      properties: b.properties
+    })),
+    connections
+  );
 
-    setBlocks(prev => prev.map(block => ({
+  setBlocks(prev => {
+    const updated = prev.map(block => ({
       ...block,
       value: circuitResults.get(block.id) ?? null
-    })));
+    }));
+    
+    // Проверяем, изменилось ли что-то
+    const changed = updated.some((b, i) => b.value !== prev[i]?.value);
+    return changed ? updated : prev;
+  });
   }, [blocks, connections]);
 
   // Начало перетаскивания блока
